@@ -1,5 +1,5 @@
 <template>
-    <div class="submit-form">
+    <div class="size submit-form table-wrapper">
         <div class="form-group">
             <label for="nome">Nome</label>
             <input 
@@ -11,26 +11,75 @@
             />
         </div>
         <div class="form-group">
-            <label for="email">Email</label>
+            <label for="estado">Estado</label>
             <input 
-                type="email" 
+                type="text" 
                 class="form-control" 
-                id="email" 
-                v-model="paciente.email" 
-                name="email"
+                id="estado" 
+                v-model="paciente.estado" 
+                name="estado"
             />
         </div>
         <div class="form-group">
-            <label for="data">Data de Internação</label>
+            <label for="cidade">Cidade</label>
             <input 
-                type="date" 
+                type="text" 
                 class="form-control" 
-                id="data_internacao" 
-                v-model="paciente.data_internacao" 
-                name="data_internacao"
+                id="cidade" 
+                v-model="paciente.cidade" 
+                name="cidade"
             />
         </div>
-
+        <div class="form-group">
+            <label for="endereco">Endereço</label>
+            <input 
+                type="text" 
+                class="form-control" 
+                id="endereco" 
+                v-model="paciente.endereco" 
+                name="endereco"
+            />
+        </div>
+        <div class="form-group">
+            <label for="telefone">Telefone</label>
+            <input 
+                type="telefone" 
+                class="form-control" 
+                id="telefone" 
+                v-model="paciente.telefone" 
+                name="telefone"
+            />
+        </div>
+        <div class="form-group">
+            <label for="altura">Altura</label>
+            <input 
+                type="number" 
+                class="form-control" 
+                id="altura" 
+                v-model="paciente.altura" 
+                name="altura"
+            />
+        </div>
+        <div class="form-group">
+            <label for="peso">Peso</label>
+            <input 
+                type="number" 
+                class="form-control" 
+                id="peso" 
+                v-model="paciente.peso" 
+                name="peso"
+            />
+        </div>
+        <div class="form-group">
+            <label for="prob_saude">Problema de saúde</label>
+            <input 
+                type="text" 
+                class="form-control" 
+                id="prob_saude" 
+                v-model="paciente.prob_saude" 
+                name="prob_saude"
+            />
+        </div>
         <button @click="inserirPaciente" class="btn btn-success">
             inserir Paciente
         </button>
@@ -39,7 +88,6 @@
 
 <script>
 
-    //import PacienteWS from '../services/PacientesWS';
 import PacientesWS from '../services/PacientesWS';
     export default {
         name: "adicionarPaciente",
@@ -48,8 +96,13 @@ import PacientesWS from '../services/PacientesWS';
                 paciente: {
                     id: "",
                     nome: "",
-                    email: "",
-                    data_internacao: new Date()
+                    estado: "",
+                    cidade: "",
+                    endereco: "",
+                    telefone: "",
+                    altura: 0,
+                    peso: 0,
+                    prob_saude: ""
                 }
             }
         },
@@ -57,10 +110,16 @@ import PacientesWS from '../services/PacientesWS';
             inserirPaciente(){
                 let dadosPaciente = {
                     nome: this.paciente.nome,
-                    email: this.paciente.email,
-                    data_internacao: this.paciente.data_internacao
+                    estado: this.paciente.estado,
+                    cidade: this.paciente.cidade,
+                    endereco: this.paciente.endereco,
+                    telefone: this.paciente.telefone,
+                    altura: this.paciente.altura,
+                    peso: this.paciente.peso,
+                    prob_saude: this.paciente.prob_saude
                 }
-
+                alert("Paciente cadastrado com sucesso")
+                
                 PacientesWS.criarPaciente(dadosPaciente)
                     .then(resp => {
                         this.paciente.id = resp.data.id;
@@ -68,6 +127,7 @@ import PacientesWS from '../services/PacientesWS';
                     }).catch(error => {
                         console.log(error.message);
                     })
+                location.reload()
             }
         }
     }

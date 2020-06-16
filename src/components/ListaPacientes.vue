@@ -1,50 +1,66 @@
 <!-- ESTRUTURA -->
 
 <template>
-  <div class="list row">
-    <div class="col-md-6">
-      <h4>Lista de Pacientes</h4>
-      <ul class="list-group">
-        <li
-          class="list-group-item"
+  <div id="app" class="container">
+    <div class="table-wrapper">
+      <div class="table-title">
+        <div class="row">
+          <div class="cos-sm-6">
+            <h2>
+              Infectados
+              <b>COVID-19</b>
+            </h2>
+          </div>
+        </div>
+      </div>
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Estado</th>
+            <th>Cidade</th>
+            <th>Endereço</th>
+            <th>Telefone</th>
+            <th>Altura</th>
+            <th>Peso</th>
+            <th>Problema de Saúde</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody
           :class="{ active: index == currentIndex }"
           v-for="(paciente, index) in pacientes"
           :key="index"
-          @click="selecionarPaciente(paciente, index)"
-        >{{ paciente.nome }}</li>
-      </ul>
-      <button class="m-3 btn btn-sm btn-danger" @click="removerTodosPacientes()">Excluir Pacientes</button>
-    </div>
-    <div class="col-md-6">
-      <div v-if="currentPaciente">
-        <h4>Paciente</h4>
-        <div>
-          <label>
-            <strong>Nome:</strong>
-          </label>
-          {{ currentPaciente.nome }}
+        >
+          <tr>
+            <td>{{ paciente.id }}</td>
+            <td>{{ paciente.nome }}</td>
+            <td>{{ paciente.estado }}</td>
+            <td>{{ paciente.cidade }}</td>
+            <td>{{ paciente.endereco }}</td>
+            <td>{{ paciente.telefone }}</td>
+            <td>{{ paciente.altura }}</td>
+            <td>{{ paciente.peso }}</td>
+            <td>{{ paciente.prob_saude }}</td>
+            <td>
+              <a :href="'pacientes/' + paciente.id" class="edit" data-toggle="modal">
+                <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="row">
+        <div class="col-sm-6">
+          <a href="/adicionar" class="btn btn-success" data-toggle="modal">
+            Adicionar paciente
+            <i class="material-icons">&#xE147;</i>
+          </a>
         </div>
-        <div>
-          <label>
-            <strong>Email:</strong>
-          </label>
-          {{ currentPaciente.email }}
-        </div>
-        <div>
-          <label>
-            <strong>Data da Internação:</strong>
-          </label>
-          {{ currentPaciente.data_internacao }}
-        </div>
-
-        <a class="badge badge-warning" :href="'/pacientes/' + currentPaciente.id">Editar Paciente</a>
-      </div>
-      <div v-else>
-        <h4>Dados do Paciente</h4>
-        <p>Por favor, selecione um paciente!</p>
       </div>
     </div>
-  </div>
+  </div>  
 </template>
 
 <!-- COMPORTAMENTO -->
@@ -102,9 +118,9 @@ export default {
 <!-- ESTILIZAÇÃO -->
 
 <style>
-    .list{
-        text-align: left;
-        max-width: 750px;
-        margin: auto;
-    }
+.list {
+  text-align: left;
+  max-width: 750px;
+  margin: auto;
+}
 </style>
