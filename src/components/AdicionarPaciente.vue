@@ -81,7 +81,7 @@
             />
         </div>
         <button @click="inserirPaciente" class="btn btn-success">
-            inserir Paciente
+            Inserir Paciente
         </button>
     </div>
 </template>
